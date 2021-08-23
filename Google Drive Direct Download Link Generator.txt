@@ -1,0 +1,49 @@
+﻿---------Google Drive Direct Download Link Generator------------------------------------------
+
+-------------------------------HTML-----------------------------
+
+<div class="Drive-container">
+  <div class="panel panel-default panel-primary" id="mainpanel">
+    <div class="panel-heading">
+      <h1 class="panel-title"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M7.71,3.5L1.15,15L4.58,21L11.13,9.5M9.73,15L6.3,21H19.42L22.85,15M22.28,14L15.42,2H8.58L8.57,2L15.43,14H22.28Z" />
+</svg>Google Drive Direct Download Link Generator</h1>
+    </div>
+    <div class="panel-body">
+      <form>
+        <div class="form-group">
+          <label for="sharelink">Share link</label>
+          <input type="text" class="form-control" id="sharelink" placeholder="https://drive.google.com/file/d/XX-X__XXXXX-XXXXXXXXXXXXXXXX/view?usp=sharing" autofocus="true">
+        </div>
+        <div class="form-group">
+          <label for="downloadlink">Download link</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="downloadlink" readonly>
+            <span class="input-group-btn">
+        <button id="copylinkbtn" class="Dbtn Dbtn-primary" type="button" data-clipboard-target="#downloadlink" disabled>Copy link</button>
+      </span>
+          </div>
+        </div>
+      </form>
+      
+    </div>
+    
+  </div>
+</div>
+
+----------------------------CSS--------------------------
+
+<style>
+  .panel-title svg{vertical-align: middle;padding-right:12px;} .panel-body { margin: 0px 45px 0 18px; }.panel-primary { border-top:none; border:1px solid #222;box-shadow: 0 1px 1px rgba(0,0,0,.05);border-radius: 4px; } .Drive-container{ padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;} .Dbtn-primary { color: #fff; background-color: #1FA463; padding: 6px 12px;text-align: center; vertical-align: middle; border:0; margin-top:12px; } .form-control { display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px; line-height: 1.42857143; color: #555; background-color: #fff; background-image: none; border: 1px solid #222; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); box-shadow: inset 0 1px 1px rgba(0,0,0,.075); -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s; -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; } .panel-heading{} .form-group { margin-bottom: 15px; } .panel-title{background: #1FA463; padding: 5px 12px;display: flex; vertical-align: middle;border:1px solid #4688F4; text-align: left;color:#fff; font-size: 18px; box-shadow: 0 1px 1px rgba(0,0,0,.05); } #mainpanel { margin-top: 70px; } img { max-width: 100%; height: auto; }
+</style>
+
+
+----------------------------JavaScript------------------------
+
+<script>
+  (function($) { $(function() { var $shareLink = $('#sharelink'), $downloadLink = $('#downloadlink'), $copyButton = $('#copylinkbtn'), clipboard; $shareLink.on('keyup paste', function() { var link = $shareLink.val(), l = link.replace(/\/file\/d\/(.+)\/(.+)/, "/uc?export=download&id=$1"); if(l !== link) { $downloadLink.val(l); $copyButton.removeAttr('disabled'); } else { $downloadLink.val(''); $copyButton.attr('disabled', 'disabled'); } }); $downloadLink.on('click', function() { $downloadLink.select(); }); clipboard = new Clipboard('#copylinkbtn'); clipboard.on('success', function(e) { $.notify({ icon: 'glyphicon glyphicon-ok-circle', title: 'Link copied to clipboard:', message: e.text, url: e.text, target: '_blank' }, { type: "success", placement: { from: "top", align: "center" } }); $.notify(e.text + " copied to clipboard."); e.clearSelection(); }); }); })(jQuery);
+</script>
+
+
+------------------------------
+@TechySharif
